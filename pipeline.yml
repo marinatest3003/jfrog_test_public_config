@@ -1,0 +1,52 @@
+
+resources:
+  - name:       MyGitHubRepo
+    type:       GitRepo
+    configuration:
+      gitProvider:  MyGitHub
+      path:         marinatest3003/marinatest3003-jfrog_test_public_config
+      branches:
+        include:    main
+      buildOn:
+         commit:            true
+  
+#   - name:       MyGitHubRepoImage
+#      type:      Image
+#      configuration:
+#        registry:            MyArtifactory
+#        sourceRepository:    docker-local   # required if registry is Artifactory
+#        imageName:           pe163161marinab.jfrog.io/jfrogcli
+#        imageTag:            jfrog_lates
+#        autoPull:            true #(default true)
+       
+# pipelines:
+#   - name: <string>
+#     steps:
+#       - name: <string>
+#         type: DockerBuild
+#         configuration:
+#           #inherits all the tags from bash; https://www.jfrog.com/confluence/display/JFROG/Bash
+#           affinityGroup:       <string>
+#           dockerFileLocation:  <string>
+#           dockerFileName:      <string>
+#           dockerImageName:     <string>
+#           dockerImageTag:      <string>
+#           dockerOptions:       <string>
+ 
+#           integrations:
+#             - name:            <artifactory integration>  # required
+ 
+#           inputResources:
+#             - name:             <GitRepo resource>        # required, git repository containing your Dockerfile
+#             - name:             <Image resource>          # optional base image
+#             - name:             <FileSpec resource>       # optional
+ 
+#         execution:
+#           onStart:
+#             - echo "Preparing for work..."
+#           onSuccess:
+#             - echo "Job well done!"
+#           onFailure:
+#             - echo "uh oh, something went wrong"
+#           onComplete: #always
+#             - echo "Cleaning up some stuff"
