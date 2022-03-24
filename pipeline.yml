@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: MyGitHub
-      path: marinatest3003/jfrog_test_public_config
+      path: marinatest3003/jfrog_test_public
       branches:
         include: main
       buildOn:
