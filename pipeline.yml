@@ -1,14 +1,13 @@
-
 resources:
-  - name:       MyGitHubRepo
-    type:       GitRepo
+  - name: MyGitHubRepo
+    type: GitRepo
     configuration:
-      gitProvider:  MyGitHub
-      path:         marinatest3003/marinatest3003-jfrog_test_public_config
+      gitProvider: MyGitHub
+      path: marinatest3003/jfrog_test_public_config
       branches:
-        include:    main
+        include: main
       buildOn:
-         commit:            true
+         commit: true
   
 #   - name:       MyGitHubRepoImage
 #      type:      Image
