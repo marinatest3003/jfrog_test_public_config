@@ -17,6 +17,15 @@ resources:
       imageName: pe163161marinab.jfrog.io/docker-local/jfrogcli
       imageTag: jfrog_lates
       autoPull: true #(default true)
+
+  - name: jfrogcli_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: MyArtifactory
+      buildName: jfrogcli_build
+      buildNumber: 1
+      
+
        
 # pipelines:
 #   - name: <string>
