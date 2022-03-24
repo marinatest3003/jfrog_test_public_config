@@ -24,37 +24,46 @@ resources:
       sourceArtifactory: MyArtifactory
       buildName: jfrogcli_build
       buildNumber: 1
-      
+            
+pipelines:
+  - name: pipeline_jfrogcli
+    steps:
+      - name: docker_build
+        type: DockerBuild
+        configuration:
+          #inherits all the tags from bash; https://www.jfrog.com/confluence/display/JFROG/Bash
+          affinityGroup: jfrogcli_group
+          dockerFileLocation: .Dockerfile
+          dockerFileName: Dockerfile
+          dockerImageName: pe163161marinab.jfrog.io/docker-local/jfrogcli
+          dockerImageTag: $ {run number}
+          integrations:
+            - name: MyArtifactory
+          inputResources:
+            - name: MyGitHubRepo
 
-       
-# pipelines:
-#   - name: <string>
-#     steps:
-#       - name: <string>
-#         type: DockerBuild
-#         configuration:
-#           #inherits all the tags from bash; https://www.jfrog.com/confluence/display/JFROG/Bash
-#           affinityGroup:       <string>
-#           dockerFileLocation:  <string>
-#           dockerFileName:      <string>
-#           dockerImageName:     <string>
-#           dockerImageTag:      <string>
-#           dockerOptions:       <string>
- 
-#           integrations:
-#             - name:            <artifactory integration>  # required
- 
-#           inputResources:
-#             - name:             <GitRepo resource>        # required, git repository containing your Dockerfile
-#             - name:             <Image resource>          # optional base image
-#             - name:             <FileSpec resource>       # optional
- 
-#         execution:
-#           onStart:
-#             - echo "Preparing for work..."
-#           onSuccess:
-#             - echo "Job well done!"
-#           onFailure:
-#             - echo "uh oh, something went wrong"
-#           onComplete: #always
-#             - echo "Cleaning up some stuff"
+      - name: docker_push
+        type: DockerPush
+        configuration:
+          affinityGroup: jfrogcli_group
+          targetRepository: docker-local
+          integrations:
+            - name: MyArtifactory                       
+          inputSteps:
+            - name: docker_build
+          outputResources:
+            - name: jfrogcli_image
+
+      - name: publish_jfrogcli_build
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: docker_push
+          outputResources:
+            - name: jfrogcli_buildinfo
+
+      - name: xrayScanStep
+        type: XrayScan
+        configuration:
+          inputResources:
+            - name: jfrogcli_buildinfo
