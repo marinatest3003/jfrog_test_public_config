@@ -10,13 +10,13 @@ resources:
          commit: true
   
   - name: MyGitHubRepoImage
-     type: Image
-     configuration:
-       registry: MyArtifactory
-       sourceRepository: docker-local   # required if registry is Artifactory
-       imageName: pe163161marinab.jfrog.io/docker-local/jfrogcli
-       imageTag: jfrog_lates
-       autoPull: true #(default true)
+    type: Image
+    configuration:
+      registry: MyArtifactory
+      sourceRepository: docker-local   # required if registry is Artifactory
+      imageName: pe163161marinab.jfrog.io/docker-local/jfrogcli
+      imageTag: jfrog_lates
+      autoPull: true #(default true)
        
 # pipelines:
 #   - name: <string>
