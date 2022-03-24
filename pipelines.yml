@@ -33,10 +33,10 @@ pipelines:
         configuration:
           #inherits all the tags from bash; https://www.jfrog.com/confluence/display/JFROG/Bash
           affinityGroup: jfrogcli_group
-          dockerFileLocation: .Dockerfile
+          dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: pe163161marinab.jfrog.io/docker-local/jfrogcli
-          dockerImageTag: $ {run number}
+          dockerImageTag: ${run_number}
           integrations:
             - name: MyArtifactory
           inputResources:
